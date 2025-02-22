@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: playlist-app
+  namespace: argocd
+spec:
+  project: kendi-project
+  source:
+    repoURL: https://github.com/Kmiriti/cloudcomp-repo
+    path: .
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kendi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

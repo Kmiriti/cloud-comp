@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-deployment
+  namespace: kendi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-app
+  template:
+    metadata:
+      labels:
+        app: ml-app
+    spec:
+      containers:
+        - name: ml-container
+          image: quay.io/kendi/ml-model:1.0
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /mnt/pvc
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: project2-pvc

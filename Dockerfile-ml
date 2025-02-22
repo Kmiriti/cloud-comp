@@ -1,0 +1,6 @@
+FROM python:3.9-slim
+WORKDIR /app
+COPY rules_generator.py .
+RUN pip install pandas fpgrowth-py
+ENV MODEL_PATH=/mnt/pvc/model.pkl
+CMD ["python", "rules_generator.py"]
